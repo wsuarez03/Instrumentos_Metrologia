@@ -1,0 +1,48 @@
+function getQueryParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+const id = getQueryParam("id");
+
+fetch("instrumentos.json")
+  .then(response => response.json())
+  .then(data => {
+    // Filtrar todos los registros que coincidan con el ID
+    const foundItems = data.filter(item => item["IDENTIFICACIÓN"] === id);
+
+    if (foundItems.length > 0) {
+      const container = document.getElementById("info");
+      container.innerHTML = ""; // Limpiar contenido anterior
+
+      foundItems.forEach(found => {
+        // Crear un bloque div para cada certificado
+        const block = document.createElement("div");
+        block.classList.add("certificado");
+
+        // Construir HTML del bloque
+        block.innerHTML = `
+          <h3>Certificado</h3>
+          <p><strong>ID:</strong> ${found["IDENTIFICACIÓN"] ?? "-"}</p>
+          <p><strong>Nombre:</strong> ${found["EQUIPO  /  INSTRUMENTO"] ?? "-"}</p>
+          <p><strong>Fabricante:</strong> ${found["FABRICANTE"] ?? "-"}</p>
+          <p><strong>Serie:</strong> ${found["SERIE "] ?? "-"}</p>
+          <p><strong>Modelo:</strong> ${found["MODELO"] ?? "-"}</p>
+          <p><strong>Fecha Calibración:</strong> ${found["FECHA DE CALIBRACION"] ?? "-"}</p>
+          <p><strong>Próxima Calibración:</strong> ${found["FECHA PROXIMA CALIBRACIÓN"] ?? "-"}</p>
+          <p><strong>Estado:</strong> ${found["ESTADO"] ?? "-"}</p>
+          <p><strong>Rango:</strong> ${found["RANGO"] ?? "-"}</p>
+          <p><strong>Origen:</strong> ${found["ORIGEN"] ?? "-"}</p>
+          <hr>
+        `;
+
+        container.appendChild(block);
+      });
+    } else {
+      document.getElementById("notfound").textContent = "⚠ Instrumento no encontrado.";
+    }
+  })
+  .catch(err => {
+    document.getElementById("notfound").textContent = "⚠ Error al cargar datos.";
+    console.error(err);
+  });
