@@ -24,7 +24,7 @@ fetch("instrumentos.json")
           <p><strong>ID:</strong> ${found["IDENTIFICACIÓN"] ?? "-"}</p>
           <p><strong>Nombre:</strong> ${found["EQUIPO  /  INSTRUMENTO"] ?? "-"}</p>
           <p><strong>Fabricante:</strong> ${found["FABRICANTE"] ?? "-"}</p>
-          <p><strong>No. Certificado:</strong> ${found["CERTIFICADO No."] ?? "-"}</p>
+          <p><strong>No. Certificado:</strong> ${found["CERTIFICADO No. "] ?? "-"}</p>
           <p><strong>Serie:</strong> ${found["SERIE "] ?? "-"}</p>
           <p><strong>Modelo:</strong> ${found["MODELO"] ?? "-"}</p>
           <p><strong>Fecha Calibración:</strong> ${found["FECHA DE CALIBRACION"] ?? "-"}</p>
