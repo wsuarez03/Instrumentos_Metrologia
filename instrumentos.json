@@ -9,10 +9,10 @@
     "FECHA DE CALIBRACION": "2025-01-24",
     "FECHA PROXIMA CALIBRACIÓN": "2026-01-24",
     "ESTADO\nCALIBRACIÓN": "CERTIFICADO",
-    "ESTADO FíSICO": "BUENO",
+    "ESTADO FíSICO": "MALO",
     "CERTIFICADOR": "METROLOGY",
     "RANGO": "0-3000 psi",
-    "ESTADO": "🟢",
+    "ESTADO": "🔴",
     "ORIGEN": "PLANTA"
   },
   {
