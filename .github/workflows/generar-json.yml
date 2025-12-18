@@ -1,5 +1,8 @@
 name: Generar JSON - Cada Lunes
 
+permissions:
+  contents: write
+
 on:
   schedule:
     # Ejecuta cada lunes a las 00:00 UTC (puedes cambiar la hora)
@@ -14,6 +17,8 @@ jobs:
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
       
       - name: Configurar Python
         uses: actions/setup-python@v4
