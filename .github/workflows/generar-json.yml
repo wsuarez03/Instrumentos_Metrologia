@@ -5,44 +5,43 @@ permissions:
 
 on:
   schedule:
-    # Ejecuta cada lunes a las 00:00 UTC (puedes cambiar la hora)
+    # Ejecuta cada lunes a las 00:00 UTC
     - cron: '0 0 * * 1'
-  # Permite ejecutar manualmente desde Actions
   workflow_dispatch:
 
 jobs:
   generar-json:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v4
         with:
           persist-credentials: true
-      
+
       - name: Configurar Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      
+
       - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
           pip install pandas requests openpyxl
-      
+
       - name: Ejecutar generar_json.py
         run: python generar_json.py
-      
-      - name: Validar cambios y hacer commit
+
+      - name: Validar cambios y hacer commit SOLO si cambia instrumentos.json
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          
-          if [[ -z $(git status -s) ]]; then
-            echo "✅ Sin cambios en instrumentos.json"
-          else
-            echo "📝 Cambios detectados, realizando commit..."
+
+          if git status --porcelain instrumentos.json | grep .; then
+            echo "📝 Cambios en instrumentos.json detectados"
             git add instrumentos.json
             git commit -m "🔄 Actualizar instrumentos.json - $(date +'%Y-%m-%d %H:%M:%S')"
             git push
+          else
+            echo "✅ instrumentos.json no tuvo cambios"
           fi
