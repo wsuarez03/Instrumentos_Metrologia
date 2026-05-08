@@ -1,4 +1,4 @@
-const cacheName = "instrumentos-cache-v1";
+const cacheName = "instrumentos-cache-v2";
 const filesToCache = [
   "index.html",
   "instrumento.html",
